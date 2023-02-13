@@ -1,0 +1,71 @@
+name: CI - Production
+
+on:
+  push:
+    branches:
+      - "main"
+
+#env:
+#DATABASE_URL: ${{ secrets.DATABASE_URL }}
+#SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19.x
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+
+      - name: Create build environment variables
+        run: echo "VITE_BUILD_DATE=$(date +%Y-%m-%d)\nVITE_BUILD_TAG=$(git describe --tags --always)" >> $GITHUB_ENV
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build Frontend
+        run: yarn build
+
+      #- name: Test
+      #  run: yarn test
+
+      #- name: Prisma Migrate
+      #  run: yarn prisma migrate deploy
+
+      - name: Login to Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Preset Image Name
+        run: echo "IMAGE_URL=$(echo ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:$(echo ${{ github.sha }} | cut -c1-7) | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
+      - name: Build and push Docker Image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ env.IMAGE_URL }}
+
+      - name: Deploy Image to CapRrover
+        uses: caprover/deploy-from-github@v1.1.2
+        with:
+          server: "${{ secrets.CAPROVER_SERVER }}"
+          app: "${{ secrets.APP_NAME }}"
+          token: "${{ secrets.APP_TOKEN }}"
+          image: ${{ env.IMAGE_URL }}

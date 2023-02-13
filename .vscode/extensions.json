@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+        "steoates.autoimport",
+        "formulahendry.auto-rename-tag",
+        "dbaeumer.vscode-eslint",
+        "prisma.prisma",
+        "sibiraj-s.vscode-scss-formatter",
+        "svelte.svelte-vscode",
+        "bradlc.vscode-tailwindcss",
+        "csstools.postcss",
+        "tamasfe.even-better-toml"
+    ],
+}

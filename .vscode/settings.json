@@ -1,0 +1,39 @@
+{
+    "editor.formatOnSave": true,
+    "workbench.editor.labelFormat": "short",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "emmet.includeLanguages": {
+        "postcss": "css"
+    },
+    "files.associations": {
+        "*.css": "sass"
+    },
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/node_modules": true,
+        "**/build": true,
+        ".svelte-kit": true,
+        ".eslint*": true,
+        ".npmrc": true,
+        ".prettier*": true,
+        "Dockerfile": true,
+        "package-lock.json": true,
+        "playwright.config.ts": true,
+        "postcss.config.cjs": true,
+        "tailwind.config.cjs": true,
+        "tsconfig.json": true,
+        "svelte.config.js": true,
+        "vite.config.ts": true,
+        "npm.sh": true,
+        "prisma.sh": true,
+        "yarn.lock": true,
+        ".gitignore": true,
+    }
+}
