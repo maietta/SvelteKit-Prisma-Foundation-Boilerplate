@@ -11,5 +11,6 @@
 <style lang="postcss">
 	:global(html) {
 		background-color: theme(colors.gray.100);
+		height: 100%;
 	}
 </style>

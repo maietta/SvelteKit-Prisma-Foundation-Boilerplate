@@ -22,18 +22,12 @@ jobs:
         with:
           node-version: 19.x
 
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-
-
       - name: Create build environment variables
-        run: echo "VITE_BUILD_DATE=$(date +%Y-%m-%d)\nVITE_BUILD_TAG=$(git describe --tags --always)" >> $GITHUB_ENV
+        run: echo "VITE_BUILD_DATE=$(date +%Y-%m-%d)" >> $GIBHUT_ENV
+      - run: echo "VITE_BUILD_TAG=$(git describe --tags --always)" >> $GITHUB_ENV
 
       - name: Install Dependencies
-        run: yarn install
+        run: yarn
 
       - name: Build Frontend
         run: yarn build

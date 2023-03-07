@@ -1,7 +1,14 @@
-<script lang="ts">
+<script>
 	import { enhance, applyAction } from '$app/forms';
-	export let form: any; // Form object.
-	export let placeholder: any; // Message placeholder object.
+
+	/**
+	 * @type {{ errors: { fname: any[]; lname: any[]; email: any[]; message: any[]; }; fname: any; data: { lname: any; email: any; message: any; }; }}
+	 */
+	 export let form;
+	/**
+	 * @type {{ message: any; classes: any; } | null}
+	 */
+	 export let placeholder = null;
 </script>
 
 <div class=" mx-auto my-20 w-1/3 border border-purple-500 bg-white">
@@ -114,11 +121,3 @@
 		</form>
 	</div>
 </div>
-
-<style lang="scss">
-	input,
-	textarea {
-		// Apply tailwind classes.
-		@apply border border-gray-500 px-4 py-2 focus:border-purple-500;
-	}
-</style>

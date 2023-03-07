@@ -1,13 +1,17 @@
-<script>
+<script lang="ts">
+	import jQuery from 'jquery'; // jQuery (Don't use import, it will break foundation.js)
+
 	import '$lib/foundation/foundation.scss';
+	import 'foundation-sites/dist/js/foundation.js';
+
 	import TopBarNav from '$lib/components/TopBarNav.svelte';
 	import CustomOffCanvasMenu from '$lib/components/CustomOffCanvasMenu.svelte';
-	import jQuery from 'jquery'; // Required for Foundation
-	import 'foundation-sites/dist/js/foundation.js';
+
 	import { onMount } from 'svelte';
 	onMount(() => {
 		jQuery(document).foundation();
 	});
+
 	import '../app.css';
 </script>
 

@@ -1,16 +1,16 @@
-import type { Actions } from './$types';
+
+import type { Actions } from "@sveltejs/kit";
 import { fail } from "@sveltejs/kit"
 
-import { z } from "zod";
-import sgMail from "@sendgrid/mail";
 
-
+import z from "zod"
+import sgMail from "@sendgrid/mail/index";
 // THE FOLLOWING TWO LINES ARE NOT WORKING. STILL WORKING ON THIS.
 // import { env } from '$env/dynamic/private';
 // const { SENDGRID_API_KEY, SENDGRID_EMAIL_FROM, VITE_CONTACT_EMAIL } = env;
 
 // This needs to be picked up from the .env file. I'm not sure how to do this. Seems broken at the moment.
-const SENDGRID_API_KEY = "SG.QHYGCtACRg-MTLCmQP6-FQ.Np8PXg13XcF-xxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+const SENDGRID_API_KEY = "<EXAMPLE_KEY>";
 const SENDGRID_EMAIL_FROM = "no-reply@example.com";
 const VITE_CONTACT_EMAIL = "username+contactform@example.com";
 
