@@ -53,3 +53,18 @@ The DATABASE_URL secret will need to be available in .env locally but also a
 production secret set in Github Repo. The workflow lines for this enviornment
 variable will need to be uncommented accordingly as well as the command in the
 steps to run the prisma migrate.
+
+# Project config:
+
+Copy the .env.example as .env.local and fill the variables. Remove or coment out
+any variables that are not needed.
+
+Keep in mind you'll need to add production version secrets in the Github repo's
+secrets as well as the Github Workflow file(s) located in .github/workflows.
+
+To avoid any CORS XSS / cross-site scripting problems, you also need to add
+ORIGIN as an enviornment variable in CapRover for your app. This is the URL of
+your app. Be sure to enforce https and redirects. This gets picked up by the
+Dockerfile on deployments.
+
+`ORIGIN=https://example.com`

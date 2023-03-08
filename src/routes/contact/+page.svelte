@@ -1,17 +1,40 @@
 <script>
 	import { enhance, applyAction } from '$app/forms';
+	import { PUBLIC_RECAPTCHA_V3_SITE_KEY } from '$env/static/public';
 
-	/**
-	 * @type {{ errors: { fname: any[]; lname: any[]; email: any[]; message: any[]; }; fname: any; data: { lname: any; email: any; message: any; }; }}
-	 */
-	export let form;
-	/**
-	 * @type {{ message: any; classes: any; } | null}
-	 */
-	export let placeholder = null;
+	export let form = {
+		data: {
+			token: '',
+			fname: '',
+			lname: '',
+			email: '',
+			message: ''
+		},
+		errors: {
+			token: '',
+			fname: '',
+			lname: '',
+			email: '',
+			message: ''
+		},
+		fname: ''
+	};
+
+	export let placeholder = {
+		message: null,
+		classes: null
+	};
 </script>
 
-<div class=" mx-auto my-20 w-1/3 border border-purple-500 bg-white">
+<svelte:head>
+	<script
+		src="https://recaptcha.net/recaptcha/api.js?render={PUBLIC_RECAPTCHA_V3_SITE_KEY}"
+		async
+		defer
+	></script>
+</svelte:head>
+
+<div class=" mx-auto my-20  border border-purple-500 bg-white">
 	<div class="p-5 space-y-5 shadow-xl">
 		<h4 class="text-center text-3xl">Contact Us</h4>
 
@@ -19,17 +42,26 @@
 			<h3 class={placeholder?.classes}>{placeholder?.message}</h3>
 		{/if}
 
+		<!-- svelte-ignore missing-declaration -->
 		<form
 			method="POST"
-			use:enhance={({ form }) => {
-				/* SvelteKit's progressive enhancement feature upgrades the form's behavior with JavaScript. The form is completely functional without JavaScript.
-				 * Progressively enhance the form with the following actions:
-				 * - On submit, send the form data to the server.
-				 * - On success, reset the form.
-				 * - On failure, display the error message.
-				 */
+			use:enhance={async ({ form, data }) => {
+				// This is the function that will be called when the form is submitted
 
-				// Before form submission to server
+				async function getCaptchaToken() {
+					return /** @type {Promise<void>} */ (
+						new Promise((resolve) => {
+							// @ts-ignore - grecaptcha is a global variable
+							grecaptcha.execute(PUBLIC_RECAPTCHA_V3_SITE_KEY).then(function (token) {
+								data.append('token', token);
+								resolve();
+							});
+						})
+					);
+				}
+
+				await getCaptchaToken();
+
 				return async ({ result, update }) => {
 					// After form submission to server
 					if (result.type === 'success') {
@@ -48,7 +80,7 @@
 		>
 			<!-- end of opening form tag with progressive enhancedment feature -->
 
-			<div class="">
+			<div class="form-body">
 				<div class="mb-4 text-gray-700">
 					<label class="block mb-1" for="firstName">First Name</label>
 					<input
@@ -121,3 +153,9 @@
 		</form>
 	</div>
 </div>
+
+<style lang="postcss">
+	.grecaptcha-badge {
+		visibility: hidden;
+	}
+</style>

@@ -8,15 +8,14 @@
 		<ul class="dropdown menu" data-dropdown-menu>
 			<li class="menu-text">Site Title</li>
 			<li>
-				<a href="/#">One</a>
+				<a href="/">Home</a>
 				<ul class="menu vertical">
 					<li><a href="/">One</a></li>
 					<li><a href="/">Two</a></li>
-					<li><a href="/">Three</a></li>
+					<li><a href="/contact">Contact</a></li>
 				</ul>
 			</li>
-			<li><a href="/">Two</a></li>
-			<li><a href="/">Three</a></li>
+			<li><a href="/contact">Contact</a></li>
 		</ul>
 	</div>
 	<div class="top-bar-right">
