@@ -5,9 +5,14 @@ on:
     branches:
       - "main"
 
-#env:
-#DATABASE_URL: ${{ secrets.DATABASE_URL }}
-#SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+env:
+  DATABASE_URL: ${{ secrets.DATABASE_URL }} # Used by Prisma
+  SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }} # Used by SendGrid
+  JWT_SECRET": ${{ secrets.JWT_SECRET }} # Used by authentication/authorization/session management
+
+  # Email configuration
+  EMAIL_DESTINATION: "you@example.com" # Where contact form emails will be sent to.
+  EMAIL_REPLY_TO: "no-reply@example.com" # Must be verified email or domain in SendGrid
 
 jobs:
   build-and-deploy:

@@ -1,9 +1,8 @@
 {
-    "editor.formatOnSave": true,
-    "workbench.editor.labelFormat": "short",
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     },
+    "editor.formatOnSave": true,
     "emmet.includeLanguages": {
         "postcss": "css"
     },
@@ -11,29 +10,32 @@
         "*.css": "sass"
     },
     "files.exclude": {
-        // "**/.git": true,
-        // "**/.svn": true,
-        // "**/.hg": true,
-        // "**/CVS": true,
-        // "**/.DS_Store": true,
-        // "**/Thumbs.db": true,
-        // "**/node_modules": false,
-        // "**/build": true,
-        // ".svelte-kit": true,
-        // ".eslint*": true,
-        // ".npmrc": true,
-        // ".prettier*": true,
-        // "Dockerfile": false,
-        // "package-lock.json": true,
-        // "playwright.config.ts": true,
-        // "postcss.config.cjs": true,
-        // "tailwind.config.cjs": true,
-        // "tsconfig.json": false,
-        // "svelte.config.js": true,
-        // "vite.config.ts": true,
-        // "npm.sh": true,
-        // "prisma.sh": true,
-        // "yarn.lock": true,
-        // ".gitignore": true,
-    }
+        "**/.DS_Store": true,
+        "**/.git": true,
+        "**/.hg": true,
+        "**/.svn": true,
+        "**/CVS": true,
+        "**/Thumbs.db": true,
+        "**/build": true,
+        "**/node_modules": false,
+        ".eslint*": true,
+        ".gitignore": true,
+        ".npmrc": true,
+        ".prettier*": true,
+        ".svelte-kit": true,
+        "Dockerfile": false,
+        "npm.sh": true,
+        "package-lock.json": true,
+        "playwright.config.ts": true,
+        "postcss.config.cjs": true,
+        "prisma.sh": true,
+        "svelte.config.js": true,
+        "tailwind.config.cjs": true,
+        "tsconfig.json": true,
+        "vite.config.ts": true,
+        "yarn.lock": true
+    },
+    "workbench.editor.labelFormat": "short",
+    "workbench.iconTheme": "vs-minimal",
+    "workbench.colorTheme": "Tomorrow Night Blue"
 }

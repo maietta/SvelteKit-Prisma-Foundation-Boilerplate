@@ -4,11 +4,11 @@
 	/**
 	 * @type {{ errors: { fname: any[]; lname: any[]; email: any[]; message: any[]; }; fname: any; data: { lname: any; email: any; message: any; }; }}
 	 */
-	 export let form;
+	export let form;
 	/**
 	 * @type {{ message: any; classes: any; } | null}
 	 */
-	 export let placeholder = null;
+	export let placeholder = null;
 </script>
 
 <div class=" mx-auto my-20 w-1/3 border border-purple-500 bg-white">

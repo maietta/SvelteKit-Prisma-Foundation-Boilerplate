@@ -1,21 +1,16 @@
-
+// This file is a SvelteKit action that is called when the contact form is submitted.
 import type { Actions } from "@sveltejs/kit";
 import { fail } from "@sveltejs/kit"
 
-
+// Form specific imports
 import z from "zod"
 import sgMail from "@sendgrid/mail/index";
-// THE FOLLOWING TWO LINES ARE NOT WORKING. STILL WORKING ON THIS.
-// import { env } from '$env/dynamic/private';
-// const { SENDGRID_API_KEY, SENDGRID_EMAIL_FROM, VITE_CONTACT_EMAIL } = env;
 
-// This needs to be picked up from the .env file. I'm not sure how to do this. Seems broken at the moment.
-const SENDGRID_API_KEY = "<EXAMPLE_KEY>";
-const SENDGRID_EMAIL_FROM = "no-reply@example.com";
-const VITE_CONTACT_EMAIL = "username+contactform@example.com";
+// Import the SendGrid API key and email addresses from the private environment variables.
+import { SENDGRID_API_KEY, EMAIL_DESTINATION, EMAIL_REPLY_TO } from '$env/static/private';
 
-// Refer to https://zod.dev/ for building a desired data schema for the data we want to parse and optionally.
-const contactSchema = z.object({
+// Refer to https://zod.dev/ for details about how to setup a validation schema.
+const contactFormSchema = z.object({
     fname: z.string({ required_error: "First name is required" }).min(1),
     lname: z.string({ required_error: "Last name is required" }).min(1),
     email: z.string({ required_error: "Valid email address required" }).email(),
@@ -25,20 +20,13 @@ const contactSchema = z.object({
 export const actions: Actions = {
     default: async ({ request }) => {
 
-        sgMail.setApiKey(SENDGRID_API_KEY);
-
         const formData = Object.fromEntries(await request.formData());
-
-        // Remove empty fields from the form data.
-        Object.keys(formData).forEach(key => formData[key] === '' && delete formData[key]);
-
-        const form = contactSchema.safeParse(formData);
-        const { ...rest } = formData;
+        const form = contactFormSchema.safeParse(formData);
 
         // If there is a problem with the form data, return the error.
-        if (!form.success) {
+        if (!form.success) { // If not successful, return the error.
             return fail(400, {
-                data: rest,
+                data: formData,
                 errors: form.error.flatten().fieldErrors,
                 body: {
                     message: 'Please review the form and try again.',
@@ -48,10 +36,12 @@ export const actions: Actions = {
         }
 
         try {
+            sgMail.setApiKey(SENDGRID_API_KEY);
+
             await sgMail.send({
-                to: VITE_CONTACT_EMAIL, // Destination email address (Who is responsible responding to emails)
-                replyTo: form.data.email, // Email of visitor requesting contact.
-                from: SENDGRID_EMAIL_FROM, // Email of sender (verified email address or domain at SendGrid)
+                to: EMAIL_DESTINATION, // SendGrid verified email or domain where email is send "from". This could be a reply-to address, or a sales, support, or other address.
+                from: EMAIL_REPLY_TO,  // The email address that will be displayed as the sender.
+                replyTo: form.data.email, // The email provided provided by the visitor.
                 subject: 'Contat form submission',
                 text: 'First Name: ' + form.data.fname + '\n' +
                     'Last Name: ' + form.data.lname + '\n' +
@@ -64,7 +54,7 @@ export const actions: Actions = {
             if (err.response) {
                 console.error(err.response.body?.errors)
                 return fail(400, {
-                    data: rest,
+                    data: formData,
                     body: {
                         message: "Upstream Error: " + err.response.body?.errors[0]?.message,
                         classes: 'text-2xl text-red-500'
