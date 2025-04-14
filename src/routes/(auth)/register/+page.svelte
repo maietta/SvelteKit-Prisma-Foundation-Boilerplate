@@ -9,7 +9,7 @@
     export let form: ActionData;
 </script>
 
-<div transition:slide>
+<div transition:slide|global>
     <h1
         class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-6"
     >
@@ -18,19 +18,19 @@
 
     <!-- TODO - improve this repeated code -->
     {#if form?.passwordsNotMatch}
-        <div transition:fade>
+        <div transition:fade|global>
             <Error message="The passwords do not match, please try again." />
         </div>
     {/if}
 
     {#if form?.required}
-        <div transition:fade>
+        <div transition:fade|global>
             <Error message="All fields are required, please try again." />
         </div>
     {/if}
 
     {#if form?.unique}
-        <div transition:fade>
+        <div transition:fade|global>
             <Error message="This email already exists, please try again." />
         </div>
     {/if}
