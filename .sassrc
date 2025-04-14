@@ -1,0 +1,13 @@
+{
+  "quiet": true,
+  "suppressDeprecationWarnings": true,
+  "style": "expanded",
+  "sourceMap": true,
+  "logger": {
+    "quiet": true
+  },
+  "options": {
+    "quietDeps": true,
+    "verbose": false
+  }
+} 
