@@ -15,6 +15,6 @@ export const load: LayoutServerLoad = ({ cookies }) => {
             authUser: findByUuid(user.uuid)
         }
     } catch {
-        throw error(401, 'Unauthorized, please sign in');
+        error(401, 'Unauthorized, please sign in');
     }
 }

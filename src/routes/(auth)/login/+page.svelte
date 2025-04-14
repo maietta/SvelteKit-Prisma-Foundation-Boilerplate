@@ -3,9 +3,13 @@
     import { slide } from "svelte/transition";
     import Error from "$lib/components/alerts/Error.svelte";
     import type { ActionData } from "./$types";
-    let email: string;
-    let password: string;
-    export let form: ActionData;
+    let email: string = $state();
+    let password: string = $state();
+    interface Props {
+        form: ActionData;
+    }
+
+    let { form }: Props = $props();
 </script>
 
 <div transition:slide|global>

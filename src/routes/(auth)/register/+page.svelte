@@ -3,10 +3,14 @@
     import { slide, fade } from "svelte/transition";
     import Error from "$lib/components/alerts/Error.svelte";
     import type { ActionData } from "./$types";
-    let email: string;
-    let password: string;
-    let passwordConfirmation: string;
-    export let form: ActionData;
+    let email: string = $state();
+    let password: string = $state();
+    let passwordConfirmation: string = $state();
+    interface Props {
+        form: ActionData;
+    }
+
+    let { form }: Props = $props();
 </script>
 
 <div transition:slide|global>

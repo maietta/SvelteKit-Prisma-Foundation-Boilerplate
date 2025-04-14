@@ -32,7 +32,7 @@ export const actions: Actions = {
             return fail(400, { password, passwordsNotMatch: true });
         }
 
-        throw redirect(302, '/dashboard');
+        redirect(302, '/dashboard');
 
     }
 }

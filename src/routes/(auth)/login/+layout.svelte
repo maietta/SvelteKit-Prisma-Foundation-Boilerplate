@@ -1,5 +1,10 @@
-<script>
+<script lang="ts">
 	import '../../../app.css';
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 	// import "flowbite/dist/flowbite.css";
 </script>
 
@@ -12,7 +17,7 @@
 			class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
 		>
 			<div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-				<slot><!-- optional fallback --></slot>
+				{#if children}{@render children()}{:else}<!-- optional fallback -->{/if}
 			</div>
 		</div>
 	</div>

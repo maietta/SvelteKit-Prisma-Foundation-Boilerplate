@@ -1,5 +1,5 @@
 <div class="title-bar" data-responsive-toggle="example-animated-menu" data-hide-for="medium">
-	<button class="menu-icon" type="button" data-toggle="offCanvasLeft" />
+	<button class="menu-icon" type="button" data-toggle="offCanvasLeft"></button>
 	<div class="title-bar-title">Menu</div>
 </div>
 

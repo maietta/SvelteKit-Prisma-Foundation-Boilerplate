@@ -23,6 +23,6 @@ export const actions: Actions = {
         if (user)
             setAuthenticationCookies(cookies, user.uuid);
 
-        throw redirect(302, '/dashboard');
+        redirect(302, '/dashboard');
     }
 }

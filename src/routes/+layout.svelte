@@ -9,6 +9,8 @@
 	import '../app.css';
 	import '$lib/foundation/foundation.scss';
 
+	let { children } = $props();
+
 	let jQuery: any;
 	
 	onMount(async () => {
@@ -35,12 +37,12 @@
 				id="offCanvasRight"
 				data-off-canvas
 				data-position="right"
-			/>
+			></div>
 			<div class="off-canvas-content z-10 flex flex-col min-h-full" data-off-canvas-content>
 				<TopBarNav />
 				<main class="flex-grow">
 					<div class="grid-container">
-						<slot />
+						{@render children()}
 					</div>
 				</main>
 			</div>
